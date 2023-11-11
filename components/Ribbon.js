@@ -1,23 +1,11 @@
 /* eslint-disable */
-import { useEffect } from 'react'
-const id = 'canvasRibbon'
+import React from 'react'
 
-const Ribbon = () => {
- const destroyRibbon = ()=>{
-    const ribbon = document.getElementById(id)
-      if(ribbon && ribbon.parentNode){
-        ribbon.parentNode.removeChild(ribbon)
-      }
-  }
-  
-  useEffect(() => {
+export const Ribbon = () => {
+  React.useEffect(() => {
     createRibbon()
-    return () => destroyRibbon()
   }, [])
-  return <></>
 }
-
-export default Ribbon
 
 /**
  * 创建连接点
@@ -41,7 +29,6 @@ function createRibbon() {
       a = window.innerWidth,
       l = window.innerHeight,
       d = e.s
-    i.id= id
     let r, s
     const u = Math
     let h = 0

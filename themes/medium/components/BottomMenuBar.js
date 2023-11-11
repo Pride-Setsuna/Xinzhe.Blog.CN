@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { useMediumGlobal } from '@/themes/medium'
+import { useMediumGlobal } from '../LayoutBase'
 import JumpToTopButton from './JumpToTopButton'
 
 export default function BottomMenuBar ({ post, className }) {

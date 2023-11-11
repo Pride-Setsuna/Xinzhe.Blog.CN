@@ -1,5 +1,5 @@
 import InfoCard from './InfoCard'
-import { MenuList } from './MenuList'
+import MenuButtonGroup from './MenuButtonGroup'
 import SearchInput from './SearchInput'
 import Toc from './Toc'
 import { useGlobal } from '@/lib/global'
@@ -7,9 +7,8 @@ import React from 'react'
 import Tabs from '@/components/Tabs'
 import Logo from './Logo'
 import Card from './Card'
-import CONFIG from '../config'
+import CONFIG_NEXT from '../config_next'
 import BLOG from '@/blog.config'
-import Live2D from '@/components/Live2D'
 
 /**
  * 侧边平铺
@@ -24,17 +23,22 @@ const SideAreaLeft = props => {
   const { post, slot, postCount } = props
   const { locale } = useGlobal()
   const showToc = post && post.toc && post.toc.length > 1
-  return <aside id='left' className={(BLOG.LAYOUT_SIDEBAR_REVERSE ? 'ml-4' : 'mr-4') + ' hidden lg:block flex-col w-60 z-20 relative'}>
+  return <aside id='left' className={(BLOG.LAYOUT_SIDEBAR_REVERSE ? 'ml-4' : 'mr-4') + ' hidden lg:block flex-col w-60 z-10 relative'}>
 
         <section
+            data-aos="fade-down"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-once="false"
+            data-aos-anchor-placement="top-bottom"
             className='w-60'>
             {/* 菜单 */}
             <section className='shadow hidden lg:block mb-5 pb-4 bg-white dark:bg-hexo-black-gray hover:shadow-xl duration-200'>
-                <Logo className='h-32' {...props} />
+                <Logo {...props} className='h-32' />
                 <div className='pt-2 px-2 font-sans'>
-                    <MenuList allowCollapse={true} {...props} />
+                    <MenuButtonGroup allowCollapse={true} {...props} />
                 </div>
-                {CONFIG.MENU_SEARCH && <div className='px-2 pt-2 font-sans'>
+                {CONFIG_NEXT.MENU_SEARCH && <div className='px-2 pt-2 font-sans'>
                     <SearchInput {...props} />
                 </div>}
 
@@ -67,10 +71,9 @@ const SideAreaLeft = props => {
                 </Tabs>
             </Card>
 
-            <div className='flex justify-center'>
+            {slot && <div className='flex justify-center'>
                 {slot}
-                <Live2D />
-            </div>
+            </div>}
         </div>
 
     </aside>

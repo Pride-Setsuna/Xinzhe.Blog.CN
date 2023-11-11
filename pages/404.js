@@ -1,7 +1,6 @@
-import { getGlobalData } from '@/lib/notion/getNotionData'
+import { getGlobalNotionData } from '@/lib/notion/getNotionData'
+import * as ThemeMap from '@/themes'
 import { useGlobal } from '@/lib/global'
-import { useRouter } from 'next/router'
-import { getLayoutByTheme } from '@/themes/theme'
 
 /**
  * 404
@@ -9,19 +8,14 @@ import { getLayoutByTheme } from '@/themes/theme'
  * @returns
  */
 const NoFound = props => {
-  const { siteInfo } = useGlobal()
+  const { theme, siteInfo } = useGlobal()
+  const ThemeComponents = ThemeMap[theme]
   const meta = { title: `${props?.siteInfo?.title} | 页面找不到啦`, image: siteInfo?.pageCover }
-
-  props = { ...props, meta }
-
-  // 根据页面路径加载不同Layout文件
-  const Layout = getLayoutByTheme(useRouter())
-
-  return <Layout {...props} />
+  return <ThemeComponents.Layout404 {...props} meta={meta}/>
 }
 
 export async function getStaticProps () {
-  const props = (await getGlobalData({ from: '404' })) || {}
+  const props = (await getGlobalNotionData({ from: '404' })) || {}
   return { props }
 }
 
